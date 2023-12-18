@@ -67,7 +67,7 @@ public class RunWorker : IHostedService
         var b = 123;
         var c = 312;
 
-        _logger.Error("yoyoyoyoyyo");
+        _logger.Error("lets gooooo");
 
         _lifetime.StopApplication();
         return Task.CompletedTask;

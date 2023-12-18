@@ -1,18 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <SentryUploadSymbols>true</SentryUploadSymbols>
+        <SentryUploadSources>true</SentryUploadSources>
+        <SentryOrg>tadas-development</SentryOrg>
+        <SentryProject>ConsoleApp</SentryProject>
+        <SentryUrl>https://7a6c711dffe3b3b5e50a5e85fc24ce18@o4506416479535104.ingest.sentry.io/4506416521805824</SentryUrl>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
-    <PackageReference Include="Sentry.AspNetCore" Version="3.41.3" />
-    <PackageReference Include="Sentry.Serilog" Version="3.41.3" />
-    <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+        <PackageReference Include="Sentry.AspNetCore" Version="3.41.3" />
+        <PackageReference Include="Sentry.Serilog" Version="3.41.3" />
+        <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
+    </ItemGroup>
 
 </Project>
