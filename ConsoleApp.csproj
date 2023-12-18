@@ -5,11 +5,6 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <SentryUploadSymbols>true</SentryUploadSymbols>
-        <SentryUploadSources>true</SentryUploadSources>
-        <SentryOrg>tadas-development</SentryOrg>
-        <SentryProject>ConsoleApp</SentryProject>
-        <SentryUrl>https://7a6c711dffe3b3b5e50a5e85fc24ce18@o4506416479535104.ingest.sentry.io/4506416521805824</SentryUrl>
     </PropertyGroup>
 
     <ItemGroup>
