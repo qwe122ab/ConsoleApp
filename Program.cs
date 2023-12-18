@@ -64,7 +64,10 @@ public class RunWorker : IHostedService
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        _logger.Error("test123");
+        var b = 123;
+        var c = 312;
+
+        _logger.Error("yoyoyoyoyyo");
 
         _lifetime.StopApplication();
         return Task.CompletedTask;
