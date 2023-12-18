@@ -23,6 +23,7 @@ internal class Program
                 .WriteTo.Sentry(o =>
                 {
                     o.Dsn = "https://7a6c711dffe3b3b5e50a5e85fc24ce18@o4506416479535104.ingest.sentry.io/4506416521805824";
+                    o.Release = "v1";
                 })
                 .WriteTo.Console();
             }).Build().Run();
