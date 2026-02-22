@@ -1,6 +1,7 @@
-using System.Text.Json;
+using ConsoleApp.Data;
+using ConsoleApp.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConsoleApp.Controllers;
 
@@ -10,7 +11,7 @@ public record CacheResponse(string Key, string RandomProperty);
 
 [ApiController]
 [Route("api/[controller]")]
-public class CacheController(IDistributedCache distributedCache) : ControllerBase
+public class CacheController(AppDbContext dbContext) : ControllerBase
 {
     [HttpPost]
     public async Task<IActionResult> StoreRandomProperty([FromBody] CacheRequest request, CancellationToken cancellationToken)
@@ -20,26 +21,40 @@ public class CacheController(IDistributedCache distributedCache) : ControllerBas
             return BadRequest("Key is required.");
         }
 
-        var response = new CacheResponse(request.Key, request.RandomProperty);
-        var serializedValue = JsonSerializer.Serialize(response);
+        var existingItem = await dbContext.CacheItems
+            .SingleOrDefaultAsync(item => item.Key == request.Key, cancellationToken);
 
-        await distributedCache.SetStringAsync(request.Key, serializedValue, cancellationToken);
+        if (existingItem is null)
+        {
+            existingItem = new CacheItem
+            {
+                Key = request.Key,
+                RandomProperty = request.RandomProperty
+            };
+            dbContext.CacheItems.Add(existingItem);
+        }
+        else
+        {
+            existingItem.RandomProperty = request.RandomProperty;
+        }
 
-        return Ok(response);
+        await dbContext.SaveChangesAsync(cancellationToken);
+
+        return Ok(new CacheResponse(existingItem.Key, existingItem.RandomProperty));
     }
 
     [HttpGet("{key}")]
     public async Task<IActionResult> GetRandomProperty(string key, CancellationToken cancellationToken)
     {
-        var serializedValue = await distributedCache.GetStringAsync(key, cancellationToken);
+        var item = await dbContext.CacheItems
+            .AsNoTracking()
+            .SingleOrDefaultAsync(cacheItem => cacheItem.Key == key, cancellationToken);
 
-        if (string.IsNullOrWhiteSpace(serializedValue))
+        if (item is null)
         {
             return NotFound($"No data found for key '{key}'.");
         }
 
-        var cachedValue = JsonSerializer.Deserialize<CacheResponse>(serializedValue);
-
-        return Ok(cachedValue);
+        return Ok(new CacheResponse(item.Key, item.RandomProperty));
     }
 }
