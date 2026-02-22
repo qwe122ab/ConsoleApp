@@ -1,4 +1,5 @@
-using ConsoleApp.Data;
+using Applcation.Cache;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,7 @@ builder.Services.AddStackExchangeRedisCache(options =>
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseInMemoryDatabase("ConsoleAppDb"));
+builder.Services.AddScoped<ICacheService, CacheService>();
 
 var app = builder.Build();
 

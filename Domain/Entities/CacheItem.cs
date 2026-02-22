@@ -1,4 +1,4 @@
-namespace ConsoleApp.Models;
+namespace Domain.Entities;
 
 public class CacheItem
 {
