@@ -1,7 +1,7 @@
-using ConsoleApp.Models;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace ConsoleApp.Data;
+namespace Infrastructure.Data;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
